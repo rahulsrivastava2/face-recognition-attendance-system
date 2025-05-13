@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Error Occurred</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 50px 20px;
+            height: 100vh;
+            background: linear-gradient(to right, #0f2027, #203a43, #2c5364); /* Bluish gradient */
+            color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 20px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+            color: #00d4ff;
+        }
+
+        p {
+            font-size: 1.2em;
+            margin-bottom: 15px;
+            text-align: center;
+            max-width: 700px;
+        }
+
+        a {
+            color: #fff;
+            text-decoration: none;
+            background-color: #00d4ff;
+            padding: 10px 25px;
+            border-radius: 6px;
+            font-weight: bold;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s ease;
+        }
+
+        a:hover {
+            background-color: #00bcd4;
+        }
+
+        .suggestion {
+            background-color: rgba(255, 255, 255, 0.05);
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            margin-top: 30px;
+            width: 90%;
+            max-width: 600px;
+            backdrop-filter: blur(8px);
+        }
+
+        .suggestion h2 {
+            color: #00d4ff;
+            font-size: 1.6em;
+            margin-bottom: 15px;
+        }
+
+        ul {
+            list-style-type: disc;
+            padding-left: 20px;
+            text-align: left;
+        }
+
+        ul li {
+            font-size: 1.05em;
+            margin: 8px 0;
+            color: #e0f7fa;
+        }
+
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            p, ul li {
+                font-size: 1em;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <h1>An Error Occurred</h1>
+    <p>{{ error_message }}</p>
+    <p><a href="{% url 'home' %}">Return to Home</a></p>
+
+    <div class="suggestion">
+        <h2>Suggested Fixes:</h2>
+        <p>It seems there is an issue with the camera configuration. You can try:</p>
+        <ul>
+            <li>Ensure the camera is connected properly.</li>
+            <li>Check the IP address and port settings in the camera configuration.</li>
+            <li>Verify the camera is powered on and accessible from your network.</li>
+            <li>Grant permission to access the camera via browser/device settings.</li>
+            <li>Refer to the camera's manual or manufacturer support.</li>
+        </ul>
+    </div>
+</body>
+
+</html>

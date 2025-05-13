@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Student List</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/>
+
+  <style>
+    /* Animated Gradient Background */
+    body, html {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+      background-size: 400% 400%;
+      animation: gradientBG 15s ease infinite;
+      min-height: 100vh;
+      color: #ffffff;
+    }
+
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .main-wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 40px 20px;
+    }
+
+    .container-custom {
+      background: rgba(12, 88, 158, 0.94);
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+      backdrop-filter: blur(10px);
+      width: 100%;
+      max-width: 1100px;
+      overflow-x: auto;
+    }
+
+    h1 {
+      text-align: center;
+      color: #00eaff;
+      margin-bottom: 30px;
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.4);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      color: #fff;
+    }
+
+    th, td {
+      padding: 12px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      white-space: nowrap;
+    }
+
+    th {
+      background-color: rgba(0, 122, 204, 0.86);
+    }
+
+    tr:nth-child(even) {
+      background-color: rgba(255, 255, 255, 0.05);
+    }
+
+    tr:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .actions a {
+      background-color: #00eaff;
+      color: #001f3f;
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-weight: bold;
+      text-decoration: none;
+      transition: background-color 0.3s, transform 0.2s;
+    }
+
+    .actions a:hover {
+      background-color: #00bcd4;
+      color: #000;
+      transform: scale(1.05);
+    }
+
+    .footer {
+      text-align: center;
+      margin: 30px auto;
+      font-size: 20px;
+      cursor: pointer;
+      color: #00eaff;
+      transition: color 0.3s;
+    }
+
+    .footer:hover {
+      color: #ffffff;
+    }
+
+    /* Responsive fixes */
+    @media (max-width: 768px) {
+      .container-custom {
+        padding: 20px;
+      }
+
+      table, th, td {
+        font-size: 13px;
+      }
+
+      .actions a {
+        display: block;
+        margin-bottom: 5px;
+        font-size: 13px;
+      }
+
+      .footer {
+        font-size: 16px;
+      }
+    }
+
+    @media (max-width: 576px) {
+      h1 {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="main-wrapper">
+    <div class="container-custom">
+      <h1><i class="fas fa-users"></i> Student List</h1>
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone Number</th>
+            <th>Class</th>
+            <th>Authorized</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for student in students %}
+          <tr>
+            <td>{{ student.name }}</td>
+            <td>{{ student.email }}</td>
+            <td>{{ student.phone_number }}</td>
+            <td>{{ student.student_class }}</td>
+            <td>{% if student.authorized %} Yes {% else %} No {% endif %}</td>
+            <td class="actions">
+              <a href="{% url 'student-authorize' pk=student.pk %}"><i class="fas fa-eye"></i> View</a>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Footer Icon -->
+  <div class="footer" onclick="location.href='{% url 'home' %}'">
+    <i class="fas fa-home"></i> Back to Home
+  </div>
+
+</body>
+</html>

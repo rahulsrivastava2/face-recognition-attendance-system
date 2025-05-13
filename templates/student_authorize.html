@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Authorize Student</title>
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+      color: #ffffff;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 700px;
+      margin: 50px auto;
+      background-color: rgba(255, 255, 255, 0.05);
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 0 25px rgba(0, 0, 0, 0.5);
+    }
+
+    h1 {
+      text-align: center;
+      color: #00d4ff;
+      margin-bottom: 30px;
+    }
+
+    .student-details {
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      padding-top: 20px;
+      margin-bottom: 30px;
+    }
+
+    .detail {
+      margin-bottom: 10px;
+      font-size: 1.1em;
+      color: #d1ecf1;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+    }
+
+    label {
+      font-weight: 600;
+      color: #ffffff;
+    }
+
+    input[type="checkbox"] {
+      margin-right: 10px;
+      transform: scale(1.3);
+    }
+
+    button[type="submit"] {
+      background-color: #00d4ff;
+      color: #000;
+      border: none;
+      padding: 12px 28px;
+      font-size: 16px;
+      cursor: pointer;
+      border-radius: 8px;
+      transition: background-color 0.3s ease, transform 0.2s;
+    }
+
+    button[type="submit"]:hover {
+      background-color: #00bcd4;
+      transform: scale(1.03);
+    }
+
+    .actions {
+      margin-top: 30px;
+      text-align: center;
+    }
+
+    .actions a {
+      display: inline-block;
+      margin: 0 12px;
+      padding: 10px 22px;
+      color: #00d4ff;
+      text-decoration: none;
+      border: 2px solid #00d4ff;
+      border-radius: 8px;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    .actions a:hover {
+      background-color: #00d4ff;
+      color: #000;
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        margin: 20px;
+        padding: 20px;
+      }
+
+      h1 {
+        font-size: 1.6em;
+      }
+
+      .actions a {
+        margin: 8px 4px;
+        display: block;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1><i class="fas fa-user-check"></i> Authorize Student</h1>
+
+    <div class="student-details">
+      <div class="detail"><strong>Name:</strong> {{ student.name }}</div>
+      <div class="detail"><strong>Email:</strong> {{ student.email }}</div>
+      <div class="detail"><strong>Phone Number:</strong> {{ student.phone_number }}</div>
+      <div class="detail"><strong>Class:</strong> {{ student.student_class }}</div>
+      <div class="detail"><strong>Authorized:</strong> {% if student.authorized %} Yes {% else %} No {% endif %}</div>
+    </div>
+
+    <form method="post">
+      {% csrf_token %}
+      <div class="form-group">
+        <input type="checkbox" id="authorized" name="authorized" {% if student.authorized %} checked {% endif %}>
+        <label for="authorized">Authorize Student</label>
+      </div>
+      <div style="text-align:center;">
+        <button type="submit"><i class="fas fa-save"></i> Update Authorization</button>
+      </div>
+    </form>
+
+    <div class="actions">
+      <a href="{% url 'student-list' %}"><i class="fas fa-list"></i> Back to List</a>
+      <a href="{% url 'student-detail' pk=student.pk %}"><i class="fas fa-info-circle"></i> View Details</a>
+    </div>
+  </div>
+</body>
+</html>

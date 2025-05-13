@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Student Details</title>
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/>
+
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+      color: #ffffff;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .container {
+      background-color: rgba(255, 255, 255, 0.05);
+      padding: 40px 30px;
+      border-radius: 15px;
+      box-shadow: 0 0 25px rgba(0, 0, 0, 0.4);
+      width: 90%;
+      max-width: 600px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #00d4ff;
+      margin-bottom: 30px;
+      font-size: 2em;
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.4);
+    }
+
+    .student-details {
+      border-top: 1px solid rgba(255, 255, 255, 0.2);
+      padding-top: 20px;
+      margin-bottom: 30px;
+    }
+
+    .detail {
+      margin: 12px 0;
+      font-size: 1.1em;
+      color: #d1ecf1;
+    }
+
+    .detail strong {
+      color: #ffffff;
+    }
+
+    .actions {
+      text-align: center;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+
+    .actions a {
+      background-color: #00d4ff;
+      color: #000;
+      padding: 12px 24px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: background-color 0.3s, transform 0.2s;
+    }
+
+    .actions a:hover {
+      background-color: #00bcd4;
+      transform: scale(1.05);
+    }
+
+    .actions a.delete-btn {
+      background-color: #ff4d4d;
+      color: #fff;
+    }
+
+    .actions a.delete-btn:hover {
+      background-color: #ff1a1a;
+    }
+
+    @media (max-width: 500px) {
+      .actions {
+        flex-direction: column;
+      }
+
+      .actions a {
+        width: 100%;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1><i class="fas fa-user"></i> Student Details</h1>
+
+    <div class="student-details">
+      <div class="detail"><strong>Name:</strong> {{ student.name }}</div>
+      <div class="detail"><strong>Email:</strong> {{ student.email }}</div>
+      <div class="detail"><strong>Phone Number:</strong> {{ student.phone_number }}</div>
+      <div class="detail"><strong>Class:</strong> {{ student.student_class }}</div>
+      <div class="detail"><strong>Authorized:</strong> {% if student.authorized %} Yes {% else %} No {% endif %}</div>
+    </div>
+
+    <div class="actions">
+      <a href="{% url 'student-list' %}"><i class="fas fa-arrow-left"></i> Back to List</a>
+      <a href="{% url 'student-authorize' pk=student.pk %}"><i class="fas fa-user-check"></i> Authorize</a>
+      <a href="{% url 'student-delete' pk=student.pk %}" class="delete-btn"><i class="fas fa-trash-alt"></i> Delete</a>
+    </div>
+  </div>
+</body>
+</html>

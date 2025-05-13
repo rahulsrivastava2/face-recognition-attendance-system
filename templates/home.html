@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VisageVerify</title>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    <style>
+        /* Global Styles */
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to right, #0f2027, #203a43, #2c5364); /* Bluish gradient */
+            color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 250px;
+            background: linear-gradient(to bottom, #0f2027, #203a43, #2c5364);
+            padding: 20px;
+            height: 100vh;
+            position: fixed;
+            overflow-y: auto;
+            border-right: 1px solid #444;
+        }
+
+        .sidebar h2 {
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            color: #00d4ff;
+            text-align: center;
+        }
+
+        .sidebar a {
+            display: flex;
+            align-items: center;
+            color: #ffffff;
+            text-decoration: none;
+            padding: 12px 15px;
+            margin: 8px 0;
+            border-radius: 6px;
+            background-color: rgba(255, 255, 255, 0.05);
+            transition: background 0.3s;
+        }
+
+        .sidebar a:hover {
+            background-color: rgba(0, 212, 255, 0.2);
+        }
+
+        .sidebar a i {
+            margin-right: 12px;
+            font-size: 1.2em;
+            color: #00d4ff;
+        }
+
+        /* Main Content */
+        .main-content {
+            margin-left: 250px;
+            padding: 30px;
+            flex-grow: 1;
+        }
+
+        .hero-section {
+            text-align: center;
+            padding: 60px 20px;
+            border-radius: 12px;
+            background: linear-gradient(to bottom right, #091921, #1f4068);
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.6);
+        }
+
+        .hero-section h1 {
+            font-size: 2.8em;
+            color: #00d4ff;
+            margin-bottom: 25px;
+            text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.7);
+        }
+
+        .buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 20px;
+            width: 220px;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 30px rgba(0, 0, 0, 0.7);
+        }
+
+        .card a {
+            color: #ffffff;
+            text-decoration: none;
+        }
+
+        .card a:hover {
+            text-decoration: underline;
+        }
+
+        .card i {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            color: #00d4ff;
+        }
+
+        .card p {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #d1ecf1;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .main-content {
+                margin-left: 0;
+            }
+
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+                border-right: none;
+                border-bottom: 1px solid #333;
+            }
+
+            .buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .card {
+                width: 90%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <h2>Dashboard</h2>
+        <a href="{% url 'capture_student' %}"><i class="fas fa-user-plus"></i> Student Registration</a>
+        <a href="{% url 'student-list' %}"><i class="fas fa-user-friends"></i> Manage Students</a>
+        <a href="{% url 'capture_and_recognize' %}"><i class="fas fa-camera"></i> Mark Attendance</a>
+        <a href="{% url 'student_attendance_list' %}"><i class="fas fa-list"></i> Attendance Details</a>
+        <a href="{% url 'camera_config_list' %}"><i class="fas fa-video"></i> Manage Cameras</a>
+    </div>
+
+    <div class="main-content">
+        <div class="hero-section">
+            <h1>Face Based Student Attendance System</h1>
+            <div class="buttons">
+                <div class="card">
+                    <a href="{% url 'student-list' %}">
+                        <i class="fas fa-user-graduate"></i>
+                        <p>Total Students: {{ total_students }}</p>
+                    </a>
+                </div>
+                <div class="card">
+                    <a href="{% url 'student_attendance_list' %}">
+                        <i class="fas fa-calendar-check"></i>
+                        <p>Total Attendance Records: {{ total_attendance }}</p>
+                    </a>
+                </div>
+                <div class="card">
+                    <a href="{% url 'student_attendance_list' %}">
+                        <i class="fas fa-sign-in-alt"></i>
+                        <p>Total Check-Ins: {{ total_check_ins }}</p>
+                    </a>
+                </div>
+                <div class="card">
+                    <a href="{% url 'student_attendance_list' %}">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <p>Total Check-Outs: {{ total_check_outs }}</p>
+                    </a>
+                </div>
+                <div class="card">
+                    <a href="{% url 'camera_config_list' %}">
+                        <i class="fas fa-video"></i>
+                        <p>Total Cameras: {{ total_cameras }}</p>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
