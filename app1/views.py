@@ -75,7 +75,7 @@ def recognize_faces(known_encodings, known_names, test_encodings, threshold=0.6)
 
 last_attendance_time = {}
 
-def is_in_cooldown(name, cooldown_seconds=3600):
+def is_in_cooldown(name, cooldown_seconds=240):
     now = datetime.now()
     if name in last_attendance_time:
         elapsed = (now - last_attendance_time[name]).total_seconds()
@@ -161,7 +161,7 @@ def capture_and_recognize(request):
                                 cv2.rectangle(frame, (x1, y1), (x2, y2), (0, 255, 0), 2)
                                 cv2.putText(frame, name, (x1, y1 - 10), cv2.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2, cv2.LINE_AA)
 
-                                if name != 'Not Recognized' and not is_in_cooldown(name, cooldown_seconds=60):
+                                if name != 'Not Recognized' and not is_in_cooldown(name, cooldown_seconds=240):
 
                                     students = Student.objects.filter(name=name)
                                     if students.exists():
